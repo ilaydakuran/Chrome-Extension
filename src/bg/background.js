@@ -10,6 +10,9 @@ chrome.extension.onMessage.addListener(
   	chrome.pageAction.show(sender.tab.id);
     sendResponse();
   });
+
+  
+
   function openTab(){
     return function(info, tab){
         let text = info.selectionText;
