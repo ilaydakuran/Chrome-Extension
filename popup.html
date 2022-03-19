@@ -5,7 +5,7 @@
 	#mainPopup {
 		padding: 10px;
 		height: 100px;
-		width: 200px;
+		width: 300px;
 		color: palevioletred;
 		font-size: 1em;
 		text-align: left;
@@ -24,10 +24,14 @@
 	
 </style>
 
-<h1> Misogynistic Language Detector</h1>
+<h1>Misogynistic Language Detector</h1>
 <div id="mainPopup">
 <p>This extension is about detecting misogonic comments written on social media platforms.</p>
-<button id="activatebutt" style="display:block; margin: 0 auto;"> Activate</button>
-<script src="popup.js"></script>
+<form id="automate-form">
+	<input type="text" id="instatag" placeholder="type an Instahashtag">
+	<input type="submit" value="activate">
+</form>
+<script src="./popup.js"></script>
+
 </div>
 </html>
