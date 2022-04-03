@@ -20,6 +20,18 @@
     "default_title": "MLD has access to this site",
     "default_popup": "popup.html"
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://instagram.com/*",
+        "https://www.instagram.com/*"
+      ],
+      "js" : [
+        "jquery-3.6.0.min.js",
+        "script.js"
+      ]
+    }
+  ],
   "permissions": [
     "storage",
     "contextMenus",
