@@ -41,6 +41,7 @@ $(document).ready(function () {
       const values = document.getElementsByClassName('MOdxS'); //tüm yorumlar bu class'ın içinde
       //values[index].innerText = yorum demek
       for (let index = 0; index < values.length; index++) {
+
         for(let i = 0;i < blackwords.length; i++){
           if (values[index].innerText.includes(blackwords[i])){
             counter++;
