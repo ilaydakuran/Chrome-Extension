@@ -14,6 +14,11 @@ document.getElementById('automate-form').onsubmit = event => {
   console.log('instada ilgili hashtag kısmına gidildi');
 }
 
+document.getElementById('automate-form1').onsubmit = event => {
+  event.preventDefault();
+  chrome.runtime.openOptionsPage()
+}
+
 // _7UhW9   xLCgt      MMzan   KV-D4           se6yk       T0kll
 // _7UhW9   xLCgt      MMzan   KV-D4           se6yk       T0kll 
 // _7UhW9   xLCgt      MMzan   KV-D4           se6yk       T0kll 
