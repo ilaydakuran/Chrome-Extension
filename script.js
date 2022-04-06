@@ -26,19 +26,23 @@
 // console.log(comments)
 
 
+
+const words = ["kabul", "Allah", "etsin"];
+
 $(document).ready(function () {
   var divArray = document.getElementById('react-root'); //BURAYA BAK OBSERVER,react-root bakılıcak
   var observer = new MutationObserver(function () {
       const values = document.getElementsByClassName('MOdxS'); //tüm yorumlar bu class'ın içinde
       console.log(values.length) //values[index].innerText = yorum demek
       for (let index = 0; index < values.length; index++) {
-          if (values[index].innerText.includes("kabul"))
-              values[index].innerText = values[index].innerText.replaceAll("kabul", "**censored**")
-              
+        for(let i = 0;i < words.length; i++){
+          if (values[index].innerText.includes(words[i])){
+            values[index].innerText = values[index].innerText.replaceAll(words[i], "censored")
+          }
+        }
       }
   })
   observer.observe(divArray, { attributes: false, childList: true, subtree: true });
-  
 });
 // event.preventDefault();
 // const values = document.getElementsByClassName("_7UhW9   xLCgt      MMzan   KV-D4           se6yk       T0kll");
