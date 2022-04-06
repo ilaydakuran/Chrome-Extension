@@ -25,20 +25,35 @@
 //})
 // console.log(comments)
 
+let blackwords = [];
 
+// jQuery.get('blacklist.txt', function(data) {
+//   alert(data);
+//   // process text file line by line
+//   // $('#div').html(data.replace('n',''));
+//   blackwords.push(data);
+// });
+let counter = 0;
 $(document).ready(function () {
+  blackwords.push('kabul');
   var divArray = document.getElementById('react-root'); //BURAYA BAK OBSERVER,react-root bakılıcak
   var observer = new MutationObserver(function () {
       const values = document.getElementsByClassName('MOdxS'); //tüm yorumlar bu class'ın içinde
-      console.log(values.length) //values[index].innerText = yorum demek
+      //values[index].innerText = yorum demek
       for (let index = 0; index < values.length; index++) {
-          if (values[index].innerText.includes("kabul"))
-              values[index].innerText = values[index].innerText.replaceAll("kabul", "**censored**")
-              
+        for(let i = 0;i < blackwords.length; i++){
+          if (values[index].innerText.includes(blackwords[i])){
+            counter++;
+            console.log(values[index].innerText);
+            values[index].innerText = values[index].innerText.replaceAll(blackwords[i], "**Censored**")
+          }
+        }
       }
   })
+  setTimeout(() => {
+    console.log(`${counter} message censored due to problematic language use`);
+  }, 1000);
   observer.observe(divArray, { attributes: false, childList: true, subtree: true });
-  
 });
 // event.preventDefault();
 // const values = document.getElementsByClassName("_7UhW9   xLCgt      MMzan   KV-D4           se6yk       T0kll");
