@@ -11,15 +11,12 @@ chrome.extension.onMessage.addListener(
     sendResponse();
   });
 
-  
-
   function openTab(){
     return function(info, tab){
         let text = info.selectionText;
         let instalink = "https://instagram.com/explore"; //sağ click yaptıktan sonra direkt bu sayfayı açıyor
         chrome.tabs.create ({index: tab.index + 1, url: instalink, 
         selected: true});
-       
     }
 };
   var contextMenuItem = {
