@@ -33,15 +33,20 @@ let blackwords = [];
 //   // $('#div').html(data.replace('n',''));
 //   blackwords.push(data);
 // });
+let word;
+chrome.storage.sync.get(['word'], function(result) {
+  console.log('Value currently is ' + result.word);
+  word = result.word;
+});
+
 let counter = 0;
 $(document).ready(function () {
-  blackwords.push('kabul');
+  blackwords.push(word);
   var divArray = document.getElementById('react-root'); //BURAYA BAK OBSERVER,react-root bakılıcak
   var observer = new MutationObserver(function () {
       const values = document.getElementsByClassName('MOdxS'); //tüm yorumlar bu class'ın içinde
       //values[index].innerText = yorum demek
       for (let index = 0; index < values.length; index++) {
-
         for(let i = 0;i < blackwords.length; i++){
           if (values[index].innerText.includes(blackwords[i])){
             counter++;
