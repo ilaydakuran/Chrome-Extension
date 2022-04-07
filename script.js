@@ -55,10 +55,8 @@ $(document).ready(function () {
           }
         }
       }
+      console.log(`${counter} message censored due to problematic language use`);
   })
-  setTimeout(() => {
-    console.log(`${counter} message censored due to problematic language use`);
-  }, 1000);
   observer.observe(divArray, { attributes: false, childList: true, subtree: true });
 });
 // event.preventDefault();
