@@ -19,10 +19,7 @@
     "default_title": "MLD has access to this site",
     "default_popup": "popup.html"
   },
-  // "options_ui": {
-  //   "page": "options.html",
-  //   "chrome_style": true
-  // },
+ 
   "options_page": "options.html",
   "content_scripts": [
     {
