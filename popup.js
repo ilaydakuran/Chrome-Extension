@@ -10,7 +10,7 @@ document.getElementById('automate-form1').onsubmit = event => {
 document.getElementById('automate-form').onsubmit = event => {
   event.preventDefault();
   //const instatag = document.getElementById("instatag").value;
-  chrome.tabs.create({url: `https://www.instagram.com/p/CbUfq_cMToQ/`});
+  chrome.tabs.create({url: `https://www.instagram.com/p/CcYOktcNqrQ/`});
   console.log('instada ilgili hashtag kısmına gidildi');
 }
 

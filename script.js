@@ -1,39 +1,22 @@
-// //const activate = document.getElementById('activate');
-// console = chrome.extension.getBackgroundPage().console;
-
-// document.getElementById('automate-form1').onsubmit = event => {
-//   event.preventDefault();
-//   const values = document.getElementsByClassName("_7UhW9   xLCgt      MMzan   KV-D4           se6yk       T0kll");
-//   console.log(document);
-// }
-
-// document.getElementById('automate-form').onsubmit = event => {
-//   event.preventDefault();
-//   const instatag = document.getElementById("instatag").value;
-//   chrome.tabs.create({url: `https://www.instagram.com/p/CbV11ois8n4/`});
-//   console.log('instada ilgili hashtag kısmına gidildi');
-// }
-
-// // _7UhW9   xLCgt      MMzan   KV-D4           se6yk       T0kll
-// // _7UhW9   xLCgt      MMzan   KV-D4           se6yk       T0kll 
-// // _7UhW9   xLCgt      MMzan   KV-D4           se6yk       T0kll 
-
-//console.log("scriptjs")
-
-//$('._7UhW9   xLCgt      MMzan   KV-D4           se6yk       T0kll ').each(function() {
-//  console.log($(this))
-//})
-// console.log(comments)
 
 let blackwords = [];
-
-// jQuery.get('blacklist.txt', function(data) {
-//   alert(data);
-//   // process text file line by line
-//   // $('#div').html(data.replace('n',''));
-//   blackwords.push(data);
-// });
 let word;
+
+var requestOptions = {
+  method: 'GET',
+};
+
+fetch("http://localhost:3000/words", requestOptions)
+  .then(response => response.text())
+  .then(result => {
+    const parseResult = JSON.parse(result);
+    parseResult.forEach(word => {
+      console.log(word.name);
+      blackwords.push(word.name);
+    });
+  })
+  .catch(error => console.log('error', error));
+
 chrome.storage.sync.get(['word'], function(result) {
   console.log('Value currently is ' + result.word);
   word = result.word;
@@ -59,6 +42,3 @@ $(document).ready(function () {
   })
   observer.observe(divArray, { attributes: false, childList: true, subtree: true });
 });
-// event.preventDefault();
-// const values = document.getElementsByClassName("_7UhW9   xLCgt      MMzan   KV-D4           se6yk       T0kll");
-// console.log(values);
