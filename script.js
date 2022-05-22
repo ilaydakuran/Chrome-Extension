@@ -2,20 +2,30 @@
 let blackwords = [];
 let word;
 
-var requestOptions = {
-  method: 'GET',
-};
+function hadiOlm(comment) {
+  var requestOptions = {
+    method: 'POST',
+    body: JSON.stringify({
+      message: comment
+  }),
+  // Adding headers to the request
+  headers: {
+      "Content-type": "application/json; charset=UTF-8"
+  }
+  };
 
-fetch("http://localhost:3000/words", requestOptions)
-  .then(response => response.text())
-  .then(result => {
-    const parseResult = JSON.parse(result);
-    parseResult.forEach(word => {
-      console.log(word.name);
-      blackwords.push(word.name);
-    });
-  })
-  .catch(error => console.log('error', error));
+  fetch("http://127.0.0.1:5000/api", requestOptions)
+    .then(response => response.text())
+    .then(result => {
+      console.log("Comment label ID: " + result + "\n")      
+      // const parseResult = JSON.parse(result);
+      // parseResult.forEach(word => {
+      //   console.log(word.name);
+      //   blackwords.push(word.name);
+      // });
+    })
+    .catch(error => console.log('error', error));
+}
 
 chrome.storage.sync.get(['word'], function(result) {
   console.log('Value currently is ' + result.word);
@@ -23,6 +33,7 @@ chrome.storage.sync.get(['word'], function(result) {
 });
 
 let counter = 0;
+
 $(document).ready(function () {
   blackwords.push(word);
   var divArray = document.getElementById('react-root'); //BURAYA BAK OBSERVER,react-root bakılıcak
@@ -30,6 +41,7 @@ $(document).ready(function () {
       const values = document.getElementsByClassName('MOdxS'); //tüm yorumlar bu class'ın içinde
       //values[index].innerText = yorum demek
       for (let index = 0; index < values.length; index++) {
+        hadiOlm(values[index].innerText);
         for(let i = 0;i < blackwords.length; i++){
           if (values[index].innerText.includes(blackwords[i])){
             counter++;
