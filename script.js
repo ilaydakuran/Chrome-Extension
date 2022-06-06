@@ -1,8 +1,7 @@
-
 let blackwords = [];
-let word;
+let counter = 0;
 
-function hadiOlm(comment) {
+function getData(comment,callback) {
   var requestOptions = {
     method: 'POST',
     body: JSON.stringify({
@@ -16,41 +15,37 @@ function hadiOlm(comment) {
 
   fetch("http://127.0.0.1:5000/api", requestOptions)
     .then(response => response.text())
-    .then(result => {
-      console.log("Comment label ID: " + result + "\n")      
-      // const parseResult = JSON.parse(result);
-      // parseResult.forEach(word => {
-      //   console.log(word.name);
-      //   blackwords.push(word.name);
-      // });
+    .then(result => {      
+      callback(result);
     })
     .catch(error => console.log('error', error));
+
 }
 
 chrome.storage.sync.get(['word'], function(result) {
-  console.log('Value currently is ' + result.word);
-  word = result.word;
+  for (const item of result.word){
+    blackwords.push(item);
+  }
 });
 
-let counter = 0;
-
 $(document).ready(function () {
-  blackwords.push(word);
-  var divArray = document.getElementById('react-root'); //BURAYA BAK OBSERVER,react-root bakılıcak
+  var divArray = document.querySelector('div[id^="mount_0_0"]'); 
   var observer = new MutationObserver(function () {
-      const values = document.getElementsByClassName('MOdxS'); //tüm yorumlar bu class'ın içinde
-      //values[index].innerText = yorum demek
-      for (let index = 0; index < values.length; index++) {
-        hadiOlm(values[index].innerText);
+      const values = document.getElementsByClassName('_a9zs'); 
+      for (let index = 1; index < values.length; index++) {
+        getData(values[index].innerText, function(e){
+          if(e === '1\n'){
+            values[index].innerText = "***Censored***";
+          }
+        });
         for(let i = 0;i < blackwords.length; i++){
           if (values[index].innerText.includes(blackwords[i])){
             counter++;
-            console.log(values[index].innerText);
-            values[index].innerText = values[index].innerText.replaceAll(blackwords[i], "**Censored**")
+            values[index].innerText = "***Censored***";
           }
         }
       }
       console.log(`${counter} message censored due to problematic language use`);
   })
-  observer.observe(divArray, { attributes: false, childList: true, subtree: true });
+  observer.observe(divArray, { attributes: false, childList: true, subtree: true});
 });
